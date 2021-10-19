@@ -1,0 +1,47 @@
+div.control {
+  background: rgba(0, 0, 0, 0.753);
+  color: white;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 10pt;
+}
+#input_run {
+  border: none;
+  background: #777;
+  color: white;
+}
+#button_run {
+  border: 1px solid;
+}
+div.canvas {
+  width:1200px;
+  text-align: center;
+}
+svg.canvas {
+  border: 1px solid #CCC;
+  /*width: 300px; height: 300px;*/
+  /*width: 150px; height: 150px;*/
+  width: 200px; height: 200px;
+}
+div.canvas_barrel {
+  display: inline-block;
+  /*width: 920px;*/
+  /*width: 470px;*/
+  width: 610px;
+}
+div.canvas_barrelZPhi {
+  display: inline-block;
+  /*width: 920px;*/
+  /*width: 470px;*/
+  width: 610px;
+}
+div.canvas_endcap {
+  display: inline-block;
+  /*width: 920px;*/
+  /*width: 470px;*/
+  width: 420px;
+}
+div.container {
+  width: 1200px;
+  text-align: center;
+}
