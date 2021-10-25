@@ -41,7 +41,7 @@ div.canvas_endcap {
   /*width: 470px;*/
   width: 420px;
 }
-div.container {
-  width: 1200px;
-  text-align: center;
+div.canvas_histFCE {
+  display: inline-block;
+  width: 800px;
 }

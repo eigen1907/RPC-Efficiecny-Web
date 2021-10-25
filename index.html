@@ -12,25 +12,23 @@
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/dc.css"/>
-  <link type="text/css" rel="stylesheet" href="css/dc-floatleft.css"/>
 </head>
 
 <body onload="initGeom(200, 200);loadRunNumber();">
 
   <div class="control">
     Run: 
-    <!--select id="input_subdir"/><option>--- subdir ---</option></select-->
-    <select id="input_runs"/><option>--- run number ---</option></select>
+    <select id="input_runs"><option>--- run number ---</option></select>
     <input id="button_run" type="button" value="Load Data" onclick="loadData()" />
     Variable:
     <input id="input_var" type="text" readonly="readonly"/></input>
     Selected roll:
     <input id="input_rollName" type="text" readonly="readonly"/></input>
-    Legend: 
-    <input id="input_legend" type="color" readonly="readonly"/></input>
   </div>
 
   <div class="canvas" id="canvas">
+    <div class="canvas_histFCE" id="canvas_histFCE"></div>
+    <div class="canvas_legend" id="canvas_legend"></div>
     <div class="canvas_barrel" id="canvas_barrel">Barrel<br/></div>
     <div class="canvas_barrelZPhi" id="canvas_barrelZPhi">Barrel(ZPhi)<br/></div>
     <br/>
@@ -38,12 +36,5 @@
     <div class="canvas_endcap" id="canvas_endcapMinus">Endcap-<br/></div>
   </div>
 
-  <div class="container">
-    <div id="chart-hist-FCE" style="width:600px; height: 300px">
-      <div class="reset" style="visibility: hidden;">range: <span class="filter"></span>
-        <a href="javascript:FCEHistChart.filterAll();dc.redrawAll();">reset</a>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

@@ -1,8 +1,31 @@
+function replaceAll(str, searchStr, replaceStr) {
+  return str.split(searchStr).join(replaceStr);
+}
+
 function regularizeAngle(angle, sector) {
   var res = angle;
   if ( res < 0 && sector != 1 ) res += 2*Math.PI;
   return res;
 }
+
+function onclickBarrel(barrelName) {
+  d3.selectAll(".clickOn").attr('stroke-width', 0.6).attr('stroke', '#777').attr('class', 'clickOff')
+  barrelName = barrelName.replaceAll("+", "p").replaceAll("-", "m")
+  d3.select('#input_rollName').attr('value', barrelName)
+  barrelId = '#roll_' + barrelName;
+  barrelZphiId = '#rollZPhi_' + barrelName;
+  d3.select(barrelId).attr('stroke-width', 2.5).attr('stroke', 'black').attr('class', 'clickOn');
+  d3.select(barrelZphiId).attr('stroke-width', 2.5).attr('stroke', 'black').attr('class', 'clickOn');
+}
+
+function onclickEndcap(endcapName) {
+  d3.selectAll(".clickOn").attr('stroke-width', 0.6).attr('stroke', '#777').attr('class', 'clickOff')
+  endcapName = endcapName.replaceAll("+", "p").replaceAll("-", "m")
+  d3.select('#input_rollName').attr('value', endcapName)
+  endcapId = '#roll_' + endcapName;
+  d3.select(endcapId).attr('stroke-width', 2.5).attr('stroke', 'black').attr('class', 'clickOn');
+}
+
 
 function initGeom(width, height) {
   // Clean up elements (if exists)
@@ -22,7 +45,7 @@ function initGeom(width, height) {
       .attr('id', name).attr('class', 'canvas')
       .append('circle')
       .attr('cx', width/2).attr('cy', height/2).attr('r',2)
-      .attr('fill','black');
+      .attr('fill','#777');
     d3.select('#'+name)
       .append('text').text('W'+w)
       .attr('x', width/2).attr('y', height/2-7)
@@ -50,7 +73,7 @@ function initGeom(width, height) {
       .attr('id', name).attr('class', 'canvas')
       .append('circle')
       .attr('cx', width/2).attr('cy', height/2).attr('r',2)
-      .attr('fill','black');
+      .attr('fill','#777');
     d3.select('#'+name)
       .append('text').text('RE'+d)
       .attr('x', width/2).attr('y', height/2-7)
@@ -64,7 +87,7 @@ function initGeom(width, height) {
       .attr('id', name).attr('class', 'canvas')
       .append('circle')
       .attr('cx', width/2).attr('cy', height/2).attr('r',2)
-      .attr('fill','black');
+      .attr('fill','#777');
     d3.select('#'+name)
       .append('text').text('RE'+d)
       .attr('x', width/2).attr('y', height/2-7)
@@ -113,10 +136,10 @@ function initGeom(width, height) {
                             dd = dd.map(x => [scaleBarrelX(x[0]), scaleBarrelY(x[1])]);
                             return dd.map(x => x.join(',')).join(' ');
                           })
-          .attr('id', x => 'roll_'+x)
-          .attr('stroke-width', 0.7).attr('stroke', '#777')
+          .attr('id', x => ('roll_'+x).replaceAll("+", "p").replaceAll("-", "m")).attr('class', 'clickOff')
+          .attr('stroke-width', 0.6).attr('stroke', '#777')
           .attr('fill', 'white')
-          .on('click', function(y, x) {d3.select('#input_rollName').attr('value', x)});
+          .on('click', function(y, x) {onclickBarrel(x)});
       }
 
       for ( var key in data.structure.Endcap ) {
@@ -133,10 +156,10 @@ function initGeom(width, height) {
                             dd = dd.map(x => [scaleX(x[0]), scaleY(x[1])]);
                             return dd.map(x => x.join(',')).join(' ');
                           })
-          .attr('id', x => 'roll_'+x)
-          .attr('stroke-width', 0.5).attr('stroke', '#777')
+          .attr('id', x => ('roll_'+x).replaceAll("+", "p").replaceAll("-", "m")).attr('class', 'clickOff')
+          .attr('stroke-width', 0.6).attr('stroke', '#777')
           .attr('fill', 'white')
-          .on('click', function(y, x) {d3.select('#input_rollName').attr('value', x)});
+          .on('click', function(y, x) {onclickEndcap(x)});
       }
 
       for ( var key in data.structure.BarrelLayer ) {
@@ -151,37 +174,12 @@ function initGeom(width, height) {
                             dd = dd.map(x => [scaleZ(x[2]), scalePhi(regularizeAngle(Math.atan2(x[1], x[0]), sector))]);
                             return dd.map(x => x.join(',')).join(' ');
                           })
-          .attr('id', x => 'rollZPhi_'+x)
-          .attr('stroke-width', 0.5).attr('stroke', '#777')
+          .attr('id', x => ('rollZPhi_'+x).replaceAll("+", "p").replaceAll("-", "m")).attr('class', 'clickOff')
+          .attr('stroke-width', 0.6).attr('stroke', '#777')
           .attr('fill', 'white')
-          .on('click', function(y, x) {d3.select('#input_rollName').attr('value', x)});
+          .on('click', function(y, x) {onclickBarrel(x)});
       }
     });
-  
 
-    /*
-
-    var legend = d3.select("#canvas_barrel")
-    .append("svg")  
-    .attr("text-anchor", "end") 
-    .selectAll("polygon") 
-    //.data(["100>=", "95>", "90>", "80>", "60>", "0>", "Null"]) 
-    .data(["100>="])
-    .enter().append("svg") 
-    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; }); 
     
-    legend.append("rect") 
-    .attr("x", width - 20) 
-    .attr("width", 19) 
-    .attr("height", 19) 
-    //.attr("fill", ["#2B0", "#6C0", "#8B0", "#DC0", "#D80", "#800", "white"]); 
-    attr("fill", ["#2B0"]);
-
-    legend.append("text") 
-    .attr("x", width - 30) 
-    .attr("y", 9.5) 
-    .attr("dy", "0.32em") 
-    .text(function(d) { return d; });
-
-    */
 }
