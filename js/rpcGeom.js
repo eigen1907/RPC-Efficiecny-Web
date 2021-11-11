@@ -2,12 +2,14 @@ function replaceAll(str, searchStr, replaceStr) {
   return str.split(searchStr).join(replaceStr);
 }
 
+
 function regularizeAngle(angle, sector) {
   var res = angle;
   if ( res < 0 && sector != 1 ) res += 2*Math.PI;
   return res;
 }
 
+// Use clickOn, clickOff Class
 function onclickBarrel(barrelName) {
   d3.selectAll(".clickOn").attr('stroke-width', 0.6).attr('stroke', '#777').attr('class', 'clickOff')
   barrelName = barrelName.replaceAll("+", "p").replaceAll("-", "m")
@@ -17,6 +19,7 @@ function onclickBarrel(barrelName) {
   d3.select(barrelId).attr('stroke-width', 2.5).attr('stroke', 'black').attr('class', 'clickOn');
   d3.select(barrelZphiId).attr('stroke-width', 2.5).attr('stroke', 'black').attr('class', 'clickOn');
 }
+
 
 function onclickEndcap(endcapName) {
   d3.selectAll(".clickOn").attr('stroke-width', 0.6).attr('stroke', '#777').attr('class', 'clickOff')
